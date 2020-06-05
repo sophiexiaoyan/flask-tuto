@@ -1,3 +1,7 @@
+## Presentation
+This project is developped by following this tutorial:
+https://flask.palletsprojects.com/en/1.1.x/tutorial/
+
 ### 1. Application setup
 Instead of creating a Flask instance globally, we'll create it inside the application function: any configuration, registration, and other setup the application needs will happen inside the function, then the application will be returned.
 
@@ -132,7 +136,7 @@ Running setup.py with Python gives you a command line tool to issue build-relate
 pip install wheel
 python setup.py bdist_wheel
 ```
-Then you can try to install the flaskr-1.0.0-py3-none-any.whl in another machine. We can set up a new nirtualenv to test it:
+Then you can try to install the flaskr-1.0.0-py3-none-any.whl in another machine. We can set up a new virtualenv to test it:
 ```
 cd flask-tuto
 python3 -m venv venv # this will create a venv directory

@@ -109,7 +109,7 @@ Using client in a with block allows accessing context variables such as session 
 To run the tests, use the pytest command. It will find and run all the test functions you’ve written.
 ```
 pytest
-pytest -v <!-- get a list of each test function rather than dots.  -->
+pytest -v # get a list of each test function rather than dots.
 ```
 
 To measure the code coverage of your tests, use the coverage to run pytest instead of running it directly.
@@ -126,18 +126,36 @@ coverage html
 ```
 
 ### 8. Deploy to production
+When you want to deploy your application elsewhere, you build a distribution file. The current standard for Python distribution is the wheel format, with the .whl extension.
+Running setup.py with Python gives you a command line tool to issue build-related commands. The bdist_wheel command will build a wheel distribution file.
 ```
 pip install wheel
 python setup.py bdist_wheel
 ```
+Then you can try to install the flaskr-1.0.0-py3-none-any.whl in another machine. We can set up a new nirtualenv to test it:
+```
+cd flask-tuto
+python3 -m venv venv # this will create a venv directory
+venv\Scripts\activate # on Windows, activate the environment
+```
+Within the activated environment, install the application and dependencies:
+```
+pip install flaskr-1.0.0-py3-none-any.whl
+pip install flask-sqlalchemy
+pip install mysqlclient
+set FLASK_APP=flaskr
+flask run
+```
+#### Run with a production server
 flask run uses the built-in development server Werkzeug for convenience,
 in production env, we need to use procuction WSGI server, such as Waitress:
 ```
 pip install waitress
-waitress-serve --call 'flaskr:create_app'
+waitress-serve --call flaskr:create_app
 ```
-### configure the secret key
-default value for SECRET_KET is 'dev', we can generate a random secret key:
+
+#### Configure the secret key
+default value for SECRET_KET is 'dev', we can generate a random secret key for procuction:
 ```
 python -c 'import os; print(os.urandom(16))'
 ```

@@ -4,12 +4,15 @@ from flaskr.config import Config
 
 db = SQLAlchemy()
 
-def create_app():
+def create_app(test_config=None):
     # __name__ is the name of the current Python module
     app = Flask(__name__)
 
-    # read configuration from class Config
-    app.config.from_object(Config)
+    if test_config is None:
+        # read configuration from class Config
+        app.config.from_object(Config)
+    else:
+        app.config.from_object(test_config)
     # app.config['SECRET_KEY'] = 'secret'
     # app.config['DEBUG'] = True
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost:3306/flaskr'

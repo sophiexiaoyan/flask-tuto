@@ -16,9 +16,9 @@ def register():
         error = None
 
         if not username:
-            error = 'Username is required'
+            error = 'Username is required.'
         elif not password:
-            error = 'Password is required'
+            error = 'Password is required.'
         elif User.query.filter(User.username==username).first() is not None:
             error = 'User {} is already registered.'.format(username)
 
@@ -42,9 +42,9 @@ def login():
         error = None
         user = User.query.filter(User.username==username).first()
         if user is None:
-            error = 'Incorrect username'
+            error = 'Incorrect username.'
         elif not check_password_hash(user.password, password):
-            error = 'Incorrect password'
+            error = 'Incorrect password.'
 
         if error is None:
             # session is a dict that stores data across requests.

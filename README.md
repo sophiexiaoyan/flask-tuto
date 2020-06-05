@@ -93,8 +93,39 @@ To test and measure the code, we need to install:
 ```
 pip install pytest coverage
 ```
+The tests/conftest.py file contains setup functions called fixtures that each test will use.
+Pytest uses fixtures by matching their function names with the names of arguments in the test functions. For example, the test_hello function takes a client argument. Pytest matches that with the client fixture function, calls it, and passes the returned value to the test function.
 
-### deploy to production
+client.get() makes a GET request and returns the Response object returned by Flask.
+Similarly, client.post() makes a POST request, converting the data dict into form data.
+
+data contains the body of the response as bytes. If you expect a certain value to render on the page, check that it’s in data.
+
+pytest.mark.parametrize tells Pytest to run the same test function with different arguments.
+
+Using client in a with block allows accessing context variables such as session after the response is returned.
+
+#### running the tests
+To run the tests, use the pytest command. It will find and run all the test functions you’ve written.
+```
+pytest
+pytest -v <!-- get a list of each test function rather than dots.  -->
+```
+
+To measure the code coverage of your tests, use the coverage to run pytest instead of running it directly.
+```
+coverage run -m pytest
+```
+You can either view a simple coverage report in the terminal:
+```
+coverage report
+```
+An HTML report allows you to see which lines were covered in each file:
+```
+coverage html
+```
+
+### 8. Deploy to production
 ```
 pip install wheel
 python setup.py bdist_wheel
